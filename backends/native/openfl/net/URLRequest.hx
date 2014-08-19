@@ -46,7 +46,7 @@ class URLRequest {
 		contentType = "application/x-www-form-urlencoded";
 		credentials = "";
 		followRedirects = true;
-		
+		userAgent = URLRequestDefaults.userAgent;
 	}
 	
 	
