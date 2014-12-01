@@ -8,6 +8,8 @@ import openfl.geom.Point;
 import openfl.geom.Rectangle;
 import openfl.utils.ByteArray;
 
+@:access(openfl.display.BitmapData)
+
 
 class BitmapDataTest {
 	
@@ -106,7 +108,7 @@ class BitmapDataTest {
 	}
 	
 	
-	#if html5 @Ignore #end @Test public function applyFilter () {
+	#if (html5 || openfl_next) @Ignore #end @Test public function applyFilter () {
 		
 		#if !html5
 		
@@ -168,6 +170,26 @@ class BitmapDataTest {
 		
 		Assert.areEqual (hex (0xFFFF0000), hex (bitmapData.getPixel32 (0, 0)));
 		Assert.areEqual (hex (0xFFFF0000), hex (bitmapData.getPixel32 (50, 50)));
+		
+		// premultiplied
+		
+		#if (!flash && (js || openfl_next))
+		var colorTransform = new ColorTransform (0, 0, 0, 1, 0xFF, 0, 0, 0);
+		
+		var bitmapData = new BitmapData (100, 100);
+		bitmapData.__image.premultiplied = true;
+		bitmapData.colorTransform (new Rectangle (0, 0, 50, 50), colorTransform);
+		
+		Assert.areEqual (hex (0xFFFF0000), hex (bitmapData.getPixel32 (0, 0)));
+		Assert.areEqual (hex (0xFFFFFFFF), hex (bitmapData.getPixel32 (50, 50)));
+		
+		bitmapData = new BitmapData (100, 100);
+		bitmapData.__image.premultiplied = true;
+		bitmapData.colorTransform (bitmapData.rect, colorTransform);
+		
+		Assert.areEqual (hex (0xFFFF0000), hex (bitmapData.getPixel32 (0, 0)));
+		Assert.areEqual (hex (0xFFFF0000), hex (bitmapData.getPixel32 (50, 50)));
+		#end
 		
 	}
 	
@@ -291,7 +313,7 @@ class BitmapDataTest {
 	}
 	
 	
-	@Test public function draw () {
+	#if openfl_next @Ignore #end @Test public function draw () {
 		
 		var bitmapData = new BitmapData (100, 100);
 		var bitmapData2 = new Bitmap (new BitmapData (100, 100, true, 0xFF0000FF));
@@ -472,9 +494,11 @@ class BitmapDataTest {
 		// TODO: Confirm functionality
 		
 		var bitmapData = new BitmapData (100, 100);
+		#if !neko
 		var exists = bitmapData.perlinNoise;
 		
 		Assert.isNotNull (exists);
+		#end
 		
 	}
 	
@@ -544,9 +568,11 @@ class BitmapDataTest {
 		// TODO: Confirm functionality
 		
 		var bitmapData = new BitmapData (100, 100);
+		#if !neko
 		var exists = bitmapData.threshold;
 		
 		Assert.isNotNull (exists);
+		#end
 		
 	}
 	
