@@ -3,9 +3,9 @@
 	"url": "http://www.openfl.org",
 	"license": "MIT",
 	"tags": [],
-	"description": "OpenFL is a powerful framework for cross-platform development",
-	"version": "2.0.1",
-	"releasenote": "Minor fixes",
+	"description": "The \"Open Flash Library\" for fast 2D development",
+	"version": "2.1.7",
+	"releasenote": "Graphic improvement, right-click on HTML5, compile guards",
 	"contributors": [ "singmajesty" ],
 	"dependencies": {}
 }
