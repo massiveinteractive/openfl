@@ -72,7 +72,8 @@ class URLRequest {
 		
 		if (userAgent == null) {
 			
-			userAgent = ""; // hack to fix _v2 native crash
+			userAgent = openfl.net.URLRequestDefaults.userAgent;
+			// userAgent = ""; // hack to fix _v2 native crash
 			
 		}
 		
